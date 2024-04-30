@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Instrument" id="LogicalDesign-141f" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="Instrument" >
+		<table name="F" prior="Entity" />
+		<table name="dim_" prior="Entity" />
+		<table name="dim_asset" prior="Entity" >
+			<column name="asset_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="asset" type="VARCHAR" length="15" jt="12" />
+			<column name="group_code" type="VARCHAR" length="15" jt="12" />
+			<index name="pk_dim_asset" unique="PRIMARY_KEY" >
+				<column name="asset_id" />
+			</index>
+		</table>
+		<table name="dim_date" prior="Entity" >
+			<column name="date_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="date_iso_format" type="DATETIME" jt="93" />
+			<column name="year_number" type="BIGINT" jt="-5" />
+			<column name="month_number" type="BIGINT" jt="-5" />
+			<column name="quarter_number" type="BIGINT" jt="-5" />
+			<column name="day_number" type="BIGINT" jt="-5" />
+			<column name="hour_number" type="BIGINT" jt="-5" />
+			<column name="week_of_month" type="BIGINT" jt="-5" />
+			<column name="week_of_year" type="BIGINT" jt="-5" />
+			<index name="pk_dim_date" unique="PRIMARY_KEY" >
+				<column name="date_id" />
+			</index>
+		</table>
+		<table name="dim_security" prior="Entity" >
+			<column name="security_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="security_type" type="VARCHAR" length="50" jt="12" />
+			<column name="security_exchange" type="VARCHAR" length="50" jt="12" />
+			<index name="pk_dim_security" unique="PRIMARY_KEY" >
+				<column name="security_id" />
+			</index>
+		</table>
+		<table name="fact_instrument" prior="Entity" >
+			<column name="highlimitprice" type="BIGINT" jt="-5" />
+			<column name="lowlimitprice" type="BIGINT" jt="-5" />
+			<column name="fact_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="security_id" type="BIGINT" jt="-5" />
+			<column name="asset_id" type="BIGINT" jt="-5" />
+			<column name="tradedate_id" prior="date_id" type="BIGINT" jt="-5" />
+			<column name="activationdatetime_id" type="BIGINT" jt="-5" />
+			<column name="expirationdatetime_id" type="BIGINT" jt="-5" />
+			<column name="maturitydate_id" type="BIGINT" jt="-5" />
+			<index name="pk_fact_instrument" unique="PRIMARY_KEY" >
+				<column name="fact_id" />
+			</index>
+			<fk name="fk_fact_instrument_dim_security" to_schema="Instrument.INSTANCE" to_table="dim_security" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="security_id" pk="security_id" />
+			</fk>
+			<fk name="fk_fact_instrument_dim_asset" to_schema="Instrument.INSTANCE" to_table="dim_asset" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="asset_id" pk="asset_id" />
+			</fk>
+			<fk name="fk_fact_instrument_dim_date" to_schema="Instrument.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="activationdatetime_id" pk="date_id" />
+			</fk>
+			<fk name="fk_fact_instrument_dim_date_0" to_schema="Instrument.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="expirationdatetime_id" pk="date_id" />
+			</fk>
+			<fk name="fk_fact_instrument_dim_date_1" to_schema="Instrument.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="maturitydate_id" pk="date_id" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-18c3" show_relation="columns" >
+		<entity schema="Instrument.INSTANCE" name="dim_asset" color="C1D8EE" x="656" y="288" />
+		<entity schema="Instrument.INSTANCE" name="dim_date" color="C1D8EE" x="48" y="80" />
+		<entity schema="Instrument.INSTANCE" name="dim_security" color="C1D8EE" x="464" y="48" />
+		<entity schema="Instrument.INSTANCE" name="fact_instrument" color="C1D8EE" x="336" y="320" />
+	</layout>
+</project>

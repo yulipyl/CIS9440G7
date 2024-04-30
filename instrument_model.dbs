@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="Instrument" id="LogicalDesign-141f" database="LogicalDesign" >
+<project name="Instrument" id="Snowflake-1f17" database="Snowflake" >
 	<schema name="INSTANCE" catalogname="Instrument" >
-		<table name="F" prior="Entity" />
-		<table name="dim_" prior="Entity" />
-		<table name="dim_asset" prior="Entity" >
-			<column name="asset_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="asset" type="VARCHAR" length="15" jt="12" />
-			<column name="group_code" type="VARCHAR" length="15" jt="12" />
-			<index name="pk_dim_asset" unique="PRIMARY_KEY" >
-				<column name="asset_id" />
+		<table name="DIM_" prior="dim_" />
+		<table name="DIM_ASSET" prior="dim_asset" >
+			<column name="ASSET_ID" prior="asset_id" type="integer" jt="4" mandatory="y" />
+			<column name="ASSET" prior="asset" type="varchar" length="15" jt="12" />
+			<column name="GROUP_CODE" prior="group_code" type="varchar" length="15" jt="12" />
+			<index name="PK_DIM_ASSET" unique="PRIMARY_KEY" >
+				<column name="ASSET_ID" />
 			</index>
 		</table>
-		<table name="dim_date" prior="Entity" >
-			<column name="date_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="date_iso_format" type="DATETIME" jt="93" />
-			<column name="year_number" type="BIGINT" jt="-5" />
-			<column name="month_number" type="BIGINT" jt="-5" />
-			<column name="quarter_number" type="BIGINT" jt="-5" />
-			<column name="day_number" type="BIGINT" jt="-5" />
-			<column name="hour_number" type="BIGINT" jt="-5" />
-			<column name="week_of_month" type="BIGINT" jt="-5" />
-			<column name="week_of_year" type="BIGINT" jt="-5" />
-			<index name="pk_dim_date" unique="PRIMARY_KEY" >
-				<column name="date_id" />
+		<table name="DIM_DATE" prior="dim_date" >
+			<column name="DATE_ID" prior="date_id" type="integer" jt="4" mandatory="y" />
+			<column name="DATE_ISO_FORMAT" prior="date_iso_format" type="datetime" jt="91" />
+			<column name="YEAR_NUMBER" prior="year_number" type="integer" jt="4" />
+			<column name="MONTH_NUMBER" prior="month_number" type="integer" jt="4" />
+			<column name="QUARTER_NUMBER" prior="quarter_number" type="integer" jt="4" />
+			<column name="DAY_NUMBER" prior="day_number" type="integer" jt="4" />
+			<column name="HOUR_NUMBER" prior="hour_number" type="integer" jt="4" />
+			<column name="WEEK_OF_MONTH" prior="week_of_month" type="integer" jt="4" />
+			<column name="WEEK_OF_YEAR" prior="week_of_year" type="integer" jt="4" />
+			<index name="PK_DIM_DATE" unique="PRIMARY_KEY" >
+				<column name="DATE_ID" />
 			</index>
 		</table>
-		<table name="dim_security" prior="Entity" >
-			<column name="security_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="security_type" type="VARCHAR" length="50" jt="12" />
-			<column name="security_exchange" type="VARCHAR" length="50" jt="12" />
-			<index name="pk_dim_security" unique="PRIMARY_KEY" >
-				<column name="security_id" />
+		<table name="DIM_SECURITY" prior="dim_security" >
+			<column name="SECURITY_ID" prior="security_id" type="integer" jt="4" mandatory="y" />
+			<column name="SECURITY_TYPE" prior="security_type" type="varchar" length="50" jt="12" />
+			<column name="SECURITY_EXCHANGE" prior="security_exchange" type="varchar" length="50" jt="12" />
+			<index name="PK_DIM_SECURITY" unique="PRIMARY_KEY" >
+				<column name="SECURITY_ID" />
 			</index>
 		</table>
-		<table name="fact_instrument" prior="Entity" >
-			<column name="highlimitprice" type="BIGINT" jt="-5" />
-			<column name="lowlimitprice" type="BIGINT" jt="-5" />
-			<column name="fact_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="security_id" type="BIGINT" jt="-5" />
-			<column name="asset_id" type="BIGINT" jt="-5" />
-			<column name="tradedate_id" prior="date_id" type="BIGINT" jt="-5" />
-			<column name="activationdatetime_id" type="BIGINT" jt="-5" />
-			<column name="expirationdatetime_id" type="BIGINT" jt="-5" />
-			<column name="maturitydate_id" type="BIGINT" jt="-5" />
-			<index name="pk_fact_instrument" unique="PRIMARY_KEY" >
-				<column name="fact_id" />
+		<table name="F" />
+		<table name="FACT_INSTRUMENT" prior="fact_instrument" >
+			<column name="HIGHLIMITPRICE" prior="highlimitprice" type="integer" jt="4" />
+			<column name="LOWLIMITPRICE" prior="lowlimitprice" type="integer" jt="4" />
+			<column name="FACT_ID" prior="fact_id" type="integer" jt="4" mandatory="y" />
+			<column name="SECURITY_ID" prior="security_id" type="integer" jt="4" />
+			<column name="ASSET_ID" prior="asset_id" type="integer" jt="4" />
+			<column name="TRADEDATE_ID" prior="tradedate_id" type="integer" jt="4" />
+			<column name="ACTIVATIONDATETIME_ID" prior="activationdatetime_id" type="integer" jt="4" />
+			<column name="EXPIRATIONDATETIME_ID" prior="expirationdatetime_id" type="integer" jt="4" />
+			<column name="MATURITYDATE_ID" prior="maturitydate_id" type="integer" jt="4" />
+			<index name="PK_FACT_INSTRUMENT" unique="PRIMARY_KEY" >
+				<column name="FACT_ID" />
 			</index>
-			<fk name="fk_fact_instrument_dim_security" to_schema="Instrument.INSTANCE" to_table="dim_security" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="security_id" pk="security_id" />
+			<fk name="FK_FACT_INSTRUMENT_DIM_SECURITY" to_schema="Instrument.INSTANCE" to_table="DIM_SECURITY" >
+				<fk_column name="SECURITY_ID" pk="SECURITY_ID" />
 			</fk>
-			<fk name="fk_fact_instrument_dim_asset" to_schema="Instrument.INSTANCE" to_table="dim_asset" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="asset_id" pk="asset_id" />
+			<fk name="FK_FACT_INSTRUMENT_DIM_ASSET" to_schema="Instrument.INSTANCE" to_table="DIM_ASSET" >
+				<fk_column name="ASSET_ID" pk="ASSET_ID" />
 			</fk>
-			<fk name="fk_fact_instrument_dim_date" to_schema="Instrument.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="activationdatetime_id" pk="date_id" />
+			<fk name="FK_FACT_INSTRUMENT_DIM_DATE" to_schema="Instrument.INSTANCE" to_table="DIM_DATE" >
+				<fk_column name="ACTIVATIONDATETIME_ID" pk="DATE_ID" />
 			</fk>
-			<fk name="fk_fact_instrument_dim_date_0" to_schema="Instrument.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="expirationdatetime_id" pk="date_id" />
+			<fk name="FK_FACT_INSTRUMENT_DIM_DATE_0" to_schema="Instrument.INSTANCE" to_table="DIM_DATE" >
+				<fk_column name="EXPIRATIONDATETIME_ID" pk="DATE_ID" />
 			</fk>
-			<fk name="fk_fact_instrument_dim_date_1" to_schema="Instrument.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="maturitydate_id" pk="date_id" />
+			<fk name="FK_FACT_INSTRUMENT_DIM_DATE_1" to_schema="Instrument.INSTANCE" to_table="DIM_DATE" >
+				<fk_column name="MATURITYDATE_ID" pk="DATE_ID" />
 			</fk>
 		</table>
 	</schema>
-	<layout name="Default Layout" id="Layout-18c3" show_relation="columns" >
-		<entity schema="Instrument.INSTANCE" name="dim_asset" color="C1D8EE" x="656" y="288" />
-		<entity schema="Instrument.INSTANCE" name="dim_date" color="C1D8EE" x="48" y="80" />
-		<entity schema="Instrument.INSTANCE" name="dim_security" color="C1D8EE" x="464" y="48" />
-		<entity schema="Instrument.INSTANCE" name="fact_instrument" color="C1D8EE" x="336" y="320" />
+	<layout name="Default Layout" id="Layout-1a84" confirmed="y" show_relation="columns" >
+		<entity schema="Instrument.INSTANCE" name="DIM_ASSET" color="C1D8EE" x="656" y="288" />
+		<entity schema="Instrument.INSTANCE" name="DIM_DATE" color="C1D8EE" x="48" y="80" />
+		<entity schema="Instrument.INSTANCE" name="DIM_SECURITY" color="C1D8EE" x="464" y="48" />
+		<entity schema="Instrument.INSTANCE" name="FACT_INSTRUMENT" color="C1D8EE" x="336" y="320" />
 	</layout>
 </project>
