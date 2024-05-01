@@ -4,6 +4,7 @@
 		<table name="DIM_" prior="dim_" />
 		<table name="DIM_ASSET" prior="dim_asset" >
 			<column name="ASSET_ID" prior="asset_id" type="integer" jt="4" mandatory="y" />
+			<column name="ASSET" prior="asset" type="varchar" length="15" jt="12" />
 			<column name="GROUP_CODE" prior="group_code" type="varchar" length="15" jt="12" />
 			<index name="PK_DIM_ASSET" unique="PRIMARY_KEY" >
 				<column name="ASSET_ID" />
